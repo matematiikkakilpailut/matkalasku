@@ -4,7 +4,7 @@ node_js:
 dist: xenial
 cache:
 - npm
-install: npm run build
+script: npm run build
 deploy:
   provider: pages
   skip_cleanup: true
