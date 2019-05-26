@@ -1,7 +1,10 @@
 language: node_js
+node_js:
+- node
 dist: xenial
-cache: npm
-build: npm run build
+cache:
+- npm
+install: npm run build
 deploy:
   provider: pages
   skip_cleanup: true
