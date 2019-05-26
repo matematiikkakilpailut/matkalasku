@@ -70,7 +70,7 @@ const Rivit = ({ rivit, setRivit }) => {
           }}
         />
       </div>
-      <div className="full" style={{ 'min-height': '40px' }}>
+      <div className="full" style={{ minHeight: '40px' }}>
         (lisää uusi rivi)
       </div>
     </>

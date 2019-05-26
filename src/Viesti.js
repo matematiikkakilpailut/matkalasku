@@ -15,6 +15,7 @@ const Linkki = ({ url, children }) => (
         window.open(url, '_blank');
       }}
       className="u-full-width"
+      tabIndex="0"
     >
       {children}
     </button>
@@ -120,7 +121,7 @@ Terveisin ${nimi || '???'}`;
         <Outlook to={to} subject={subject} body={getViesti()} />
         <Yahoo to={to} subject={subject} body={getViesti()} />
         <span>
-          <button className="button u-full-width" onClick={copy}>
+          <button className="button u-full-width" tabIndex="0" onClick={copy}>
             Kopioi
           </button>
         </span>
