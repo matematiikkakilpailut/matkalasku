@@ -1,7 +1,7 @@
 {
   "name": "matkalasku",
   "version": "0.1.0",
-  "homepage": ".",
+  "homepage": "https://matkalasku.matematiikkakilpailut.fi",
   "private": true,
   "dependencies": {
     "husky": "^2.3.0",
