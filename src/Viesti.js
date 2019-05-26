@@ -45,12 +45,16 @@ const Outlook = ({ to, subject, body }) => {
   return <Linkki url={url}>Outlook</Linkki>;
 };
 
-const Yahoo = ({ to, subject, body }) => {
+const Live = ({ to, subject, body }) => {
   const e = encodeURIComponent;
-  const url = `https://compose.mail.yahoo.com/?to=${e(to)}&subject=${e(
-    subject
-  )}&body=${e(body)}`;
-  return <Linkki url={url}>Yahoo</Linkki>;
+  const url = `https://outlook.live.com/owa/?subject=${e(subject)}&body=${e(
+    body
+  )}&to=${e(to)}&path=%2fmail%2faction%2fcompose`;
+  return (
+    <Linkki url={url}>
+      Live <small>(Hotmail)</small>
+    </Linkki>
+  );
 };
 
 const Viesti = ({ rivit, nimi, rooli, tilaisuus, pvm, tilinumero }) => {
@@ -114,7 +118,7 @@ Terveisin ${nimi || '???'}`;
         <Oma to={to} subject={subject} body={getViesti()} />
         <Gmail to={to} subject={subject} body={getViesti()} />
         <Outlook to={to} subject={subject} body={getViesti()} />
-        <Yahoo to={to} subject={subject} body={getViesti()} />
+        <Live to={to} subject={subject} body={getViesti()} />
         <span>
           <Clipboard
             render={({ copyText }) => (
