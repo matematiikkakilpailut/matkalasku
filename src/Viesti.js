@@ -9,7 +9,7 @@ const fmt = new Intl.NumberFormat('fi-FI', {
 });
 
 const Linkki = ({ url, children }) => (
-  <span>
+  <span className="button-wrapper">
     <button
       onClick={e => {
         e.preventDefault();
@@ -50,11 +50,7 @@ const Live = ({ to, subject, body }) => {
   const url = `https://outlook.live.com/owa/?subject=${e(subject)}&body=${e(
     body
   )}&to=${e(to)}&path=%2fmail%2faction%2fcompose`;
-  return (
-    <Linkki url={url}>
-      Live <small>(Hotmail)</small>
-    </Linkki>
-  );
+  return <Linkki url={url}>Hotmail</Linkki>;
 };
 
 const Viesti = ({ rivit, nimi, rooli, tilaisuus, pvm, tilinumero }) => {
@@ -94,32 +90,31 @@ Terveisin ${nimi || '???'}`;
 
   return (
     <>
-      <div className="small leftcol">
+      <div className="input input-viesti">
         <label htmlFor="viesti">Viesti</label>
-      </div>
-      <section className="full">
         <textarea
           readOnly={true}
           id="viesti"
-          className="u-full-width full"
+          className="u-full-width"
           style={{ height: '25rem' }}
           value={getViesti()}
         />
-      </section>
-      <div className="full">
-        Valitse käyttämäsi sähköpostipalvelu. "Oletus" avaa koneesi
-        sähköpostiohjelman ns. mailto-linkin avulla, seuraavat painikkeet
-        avaavat selainpohjaisen sähköpostipalvelun, tai jos näistä ei ole apua,
-        "Kopioi" kopioi viestin leikepöydälle, josta voit liittää sen muuten
-        kirjoittamaasi sähköpostiin. Lähetä sähköposti osoitteeseen
-        <code> jks+matkalasku@iki.fi</code>.
       </div>
-      <div className="full buttons">
+      <p className="selitys">
+        Valit­se käyt­tä­mäsi sähkö­posti­palvelu. "Ole­tus" avaa konee­si
+        sähkö­posti­ohjelman ns. <span lang="en">mailto</span>-linkin avul­la,
+        seu­raa­vat pai­nik­keet avaa­vat selain­pohjaisen sähkö­posti­palvelun,
+        tai jos näis­tä ei ole apua, "Kopioi" kopioi vies­tin leike­pöydälle,
+        josta voit liit­tää sen muu­ten kir­joit­ta­maa­si sähkö­postiin.
+        Lähe­tä sähkö­posti osoit­tee­seen
+        <code> jks+matkalasku@iki.fi</code>.
+      </p>
+      <div className="buttons">
         <Oma to={to} subject={subject} body={getViesti()} />
         <Gmail to={to} subject={subject} body={getViesti()} />
         <Outlook to={to} subject={subject} body={getViesti()} />
         <Live to={to} subject={subject} body={getViesti()} />
-        <span>
+        <span className="button-wrapper">
           <Clipboard
             render={({ copyText }) => (
               <button

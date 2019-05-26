@@ -2,28 +2,10 @@ import React from 'react';
 import Autocomplete from 'react-autocomplete';
 
 const Rivi = ({ data, setData, children }) => (
-  <>
-    <label className="leftcol small" htmlFor="kulkuneuvo">
-      Kulkuneuvo
-    </label>
-    <label className="small" htmlFor="lahtopaikka">
-      Mistä
-    </label>
-    <label className="small" htmlFor="tulopaikka">
-      Minne
-    </label>
-    {data.kulkuneuvo === 'oma auto' ? (
-      <label className="small" htmlFor="km">
-        Matka km
-      </label>
-    ) : (
-      <div className="small" />
-    )}
-    <label className="small" htmlFor="kustannus">
-      Kustannus €
-    </label>
+  <div class="rivi">
     {children}
-    <div className="leftcol small">
+    <div className="input input-kulkuneuvo">
+      <label htmlFor="kulkuneuvo">Kulku­neuvo</label>
       <Autocomplete
         inputProps={{
           type: 'text',
@@ -50,7 +32,8 @@ const Rivi = ({ data, setData, children }) => (
         onSelect={val => setData({ ...data, kulkuneuvo: val })}
       />
     </div>
-    <div className="small">
+    <div className="input input-lahtopaikka">
+      <label htmlFor="lahtopaikka">Mis­tä</label>
       <input
         type="text"
         id="lahtopaikka"
@@ -61,7 +44,8 @@ const Rivi = ({ data, setData, children }) => (
         }}
       />
     </div>
-    <div className="small">
+    <div className="input input-tulopaikka">
+      <label htmlFor="tulopaikka">Min­ne</label>
       <input
         type="text"
         id="tulopaikka"
@@ -72,8 +56,9 @@ const Rivi = ({ data, setData, children }) => (
         }}
       />
     </div>
-    {data.kulkuneuvo === 'oma auto' ? (
-      <div className="small">
+    {data.kulkuneuvo === 'oma auto' && (
+      <div className="input input-km">
+        <label htmlFor="km">Mat­ka km</label>
         <input
           type="number"
           id="km"
@@ -88,10 +73,9 @@ const Rivi = ({ data, setData, children }) => (
           }}
         />
       </div>
-    ) : (
-      <div className="small">&nbsp;</div>
     )}
-    <div className="small">
+    <div className="input input-kustannus">
+      <label htmlFor="kustannus">Kus­tan­nus €</label>
       <input
         type="number"
         id="kustannus"
@@ -106,9 +90,9 @@ const Rivi = ({ data, setData, children }) => (
       />
     </div>
     {data.kulkuneuvo === 'oma auto' && (
-      <div className="full">Korvaamme oman auton käytöstä 0,15 €/km.</div>
+      <div className="taksa">Kor­vaam­me oman auton käy­tös­tä 0,15 €/km.</div>
     )}
-  </>
+  </div>
 );
 
 export default Rivi;

@@ -31,27 +31,150 @@ body {
   box-sizing: border-box;
 }
 
+code,
+input,
+textarea {
+  font-family: Menlo, Consolas, Monaco, Liberation Mono, Lucida Console,
+    monospace;
+}
+
+/*****/
+
 .container {
-  display: grid;
-  grid-template-columns: [lft] 20px repeat(10, [col] 1fr) [rgt] 20px;
-  grid-template-rows: repeat(5, [row] auto);
-  grid-column-gap: 8px;
-  grid-row-gap: 0px;
+  display: flex;
+  flex-direction: column;
 }
-.leftcol {
-  grid-column: col 1;
+
+.input,
+.selitys,
+.rivi,
+.perustiedot {
+  flex: 1;
 }
-.full {
-  grid-column: col 1 / span 10;
+
+.input-pvm div {
+  width: 100%;
 }
-.margin {
-  grid-column: lft;
+
+.rivi,
+.lisarivi {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem 0;
+  padding: 1rem;
 }
-.half {
-  grid-column-end: span 5;
+
+.rivi,
+.lisarivi,
+.input-viesti > textarea {
+  border: 1px solid #aaa;
+  box-shadow: 1px 3px 3px #999;
 }
-.small {
-  grid-column-end: span 2;
+
+.list-control-container {
+  position: relative;
+  min-height: 3rem;
+}
+
+.list-control {
+  position: absolute;
+  width: 1.5rem;
+  cursor: pointer;
+  border: 1px solid #aaa;
+  box-shadow: 1px 3px 3px #999;
+  transition: all 0.1s ease-in-out;
+}
+
+.list-control-label {
+  position: absolute;
+  left: 28px;
+}
+
+.list-control:hover,
+.list-control:focus {
+  margin-top: 2px;
+  margin-left: 1px;
+  box-shadow: none;
+  border-color: #42b;
+}
+
+.input-kulkuneuvo > div {
+  width: 100%;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+}
+
+.button-wrapper {
+  flex: 0 auto;
+  min-height: 6rem;
+  min-width: 100px;
+  margin-right: 10px;
+}
+
+.button-wrapper * {
+  overflow: hidden;
+}
+
+/*****/
+
+@media (min-width: 550px) {
+  h1,
+  .selitys,
+  .input-viesti,
+  .buttons {
+    margin-left: 28px;
+  }
+  .perustiedot,
+  .rivi,
+  .lisarivi {
+    display: grid;
+    grid-template-columns: [lft] 20px repeat(10, [col] 1fr) [rgt] 20px;
+    grid-template-rows: repeat(5, [row] auto);
+    grid-column-gap: 8px;
+    grid-row-gap: 0px;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+  }
+  .input-nimi,
+  .input-tilaisuus {
+    grid-column: col 1 / span 5;
+  }
+  .input-tili,
+  .input-pvm {
+    grid-column: col 6 / span 5;
+  }
+  .input-kulkuneuvo {
+    grid-column: col 1 / span 2;
+  }
+  .input-lahtopaikka,
+  .input-tulopaikka,
+  .input-km {
+    grid-column-end: span 2;
+  }
+  .input-kustannus {
+    grid-column: col 9 / span 2;
+  }
+  .rivi .list-control-label {
+    display: none;
+  }
+  .lisarivi .list-control-container {
+    grid-column: lft / span 11;
+  }
+  .taksa {
+    grid-column: col 1 / span 10;
+  }
+  .buttons {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .button-wrapper {
+    flex: 0 1;
+    min-width: 15rem;
+  }
 }
 
 section {
@@ -70,40 +193,6 @@ section {
 
 .notOk {
   color: red;
-}
-
-.list-control-container .buttons {
-  display: flex;
-  align-items: baseline;
-  height: 1ex;
-}
-
-.list-control {
-  flex: 1;
-  width: 1.5rem;
-  cursor: pointer;
-  border: 1px solid #aaa;
-  box-shadow: 1px 3px 3px #999;
-  transition: all 0.1s ease-in-out;
-}
-
-.list-control:hover,
-.list-control:focus {
-  margin-top: 2px;
-  margin-left: 1px;
-  box-shadow: none;
-  border-color: #42b;
-}
-
-.buttons {
-  display: flex;
-  margin-top: 1.5rem;
-}
-
-.buttons * {
-  flex: 1;
-  min-width: 100px;
-  margin-right: 10px;
 }
 
 .button,
@@ -219,8 +308,6 @@ select {
   border-radius: 4px;
   box-shadow: none;
   box-sizing: border-box;
-  font-family: Menlo, Consolas, Monaco, Liberation Mono, Lucida Console,
-    monospace;
 }
 input[type='email'],
 input[type='number'],

@@ -40,7 +40,7 @@ const Rivit = ({ rivit, setRivit }) => {
     <>
       {rivit.map(item => (
         <Rivi key={item.id} data={item} setData={setData(item.id)}>
-          <div className="margin list-control-container">
+          <div className="list-control-container">
             <Minus
               className="list-control"
               tabIndex="0"
@@ -53,25 +53,26 @@ const Rivit = ({ rivit, setRivit }) => {
                 }
               }}
             />
+            <div className="list-control-label">Poista rivi</div>
           </div>
         </Rivi>
       ))}
-      <div className="margin list-control-container">
-        <Plus
-          className="list-control"
-          tabIndex="0"
-          role="button"
-          onClick={addRivi}
-          onKeyPress={e => {
-            if (e.key === ' ' || e.key === 'Enter') {
-              addRivi();
-              e.preventDefault();
-            }
-          }}
-        />
-      </div>
-      <div className="full" style={{ minHeight: '40px' }}>
-        (lisää uusi rivi)
+      <div className="lisarivi" style={{ minHeight: '40px' }}>
+        <div className="list-control-container">
+          <Plus
+            className="list-control"
+            tabIndex="0"
+            role="button"
+            onClick={addRivi}
+            onKeyPress={e => {
+              if (e.key === ' ' || e.key === 'Enter') {
+                addRivi();
+                e.preventDefault();
+              }
+            }}
+          />
+          <div className="list-control-label">lisää uusi rivi</div>
+        </div>
       </div>
     </>
   );
