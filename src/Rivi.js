@@ -1,6 +1,19 @@
 import React from 'react';
 import Autocomplete from 'react-autocomplete';
 
+const menuStyle = {
+  borderRadius: '3px',
+  border: '1px solid #aaa',
+  boxShadow: '1px 3px 3px #999',
+  background: '#ddd',
+  zIndex: 5,
+  padding: '2px 0',
+  fontSize: '90%',
+  position: 'fixed',
+  overflow: 'auto',
+  maxHeight: '50%'
+};
+
 const Rivi = ({ data, setData, children }) => (
   <div class="rivi">
     {children}
@@ -19,6 +32,7 @@ const Rivi = ({ data, setData, children }) => (
           { label: 'taksi' },
           { label: 'oma auto' }
         ]}
+        menuStyle={menuStyle}
         renderItem={(item, isHighlighted) => (
           <div
             key={item.label}
