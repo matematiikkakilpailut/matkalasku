@@ -97,6 +97,7 @@ section {
 
 .buttons {
   display: flex;
+  margin-top: 1.5rem;
 }
 
 .buttons * {
@@ -148,6 +149,12 @@ input[type='button']:focus {
 button,
 .button {
   margin-bottom: 1rem;
+  transition: color ease 100ms;
+  transition: background-color ease 100ms;
+}
+button.working {
+  color: #fff;
+  background-color: #222;
 }
 input,
 textarea,

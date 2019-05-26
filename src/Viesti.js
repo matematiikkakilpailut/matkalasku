@@ -1,6 +1,7 @@
-import React, { useRef } from 'react';
+import React, { useState } from 'react';
 import { format } from 'date-fns/esm';
 import fi from 'date-fns/esm/locale/fi';
+import Clipboard from 'react-clipboard-polyfill';
 
 const fmt = new Intl.NumberFormat('fi-FI', {
   style: 'currency',
@@ -83,12 +84,7 @@ Liitän skannatut tai kuvatut kuitit tähän sähköpostiin.
 Terveisin ${nimi || '???'}`;
   };
 
-  const textareaRef = useRef(null);
-  const copy = e => {
-    textareaRef.current.select();
-    document.execCommand('copy');
-    e.target.focus();
-  };
+  const [kopioiClasses, setKopioiClasses] = useState('u-full-width');
   const to = 'jks+matkalasku@iki.fi';
   const subject = 'Matkalasku';
 
@@ -99,7 +95,6 @@ Terveisin ${nimi || '???'}`;
       </div>
       <section className="full">
         <textarea
-          ref={textareaRef}
           readOnly={true}
           id="viesti"
           className="u-full-width full"
@@ -121,9 +116,23 @@ Terveisin ${nimi || '???'}`;
         <Outlook to={to} subject={subject} body={getViesti()} />
         <Yahoo to={to} subject={subject} body={getViesti()} />
         <span>
-          <button className="button u-full-width" tabIndex="0" onClick={copy}>
-            Kopioi
-          </button>
+          <Clipboard
+            render={({ copyText }) => (
+              <button
+                className={kopioiClasses}
+                tabIndex="0"
+                onClick={() =>
+                  copyText(getViesti())
+                    .then(setKopioiClasses('u-full-width working'))
+                    .then(
+                      setTimeout(() => setKopioiClasses('u-full-width'), 100)
+                    )
+                }
+              >
+                Kopioi
+              </button>
+            )}
+          />
         </span>
       </div>
     </>
