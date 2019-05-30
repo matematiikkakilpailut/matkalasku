@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import shortid from 'shortid';
-import Autocomplete from 'react-autocomplete';
 import IBAN from 'iban';
 import Datepicker from 'react-datepicker';
 
