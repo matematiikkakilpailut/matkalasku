@@ -1,112 +1,83 @@
 import React from 'react';
-import Autocomplete from 'react-autocomplete';
+import paikat from './kunnat/paikat.json';
+import ComboBox from './ComboBox';
 
-const menuStyle = {
-  borderRadius: '3px',
-  border: '1px solid #aaa',
-  boxShadow: '1px 3px 3px #999',
-  background: '#ddd',
-  zIndex: 5,
-  padding: '2px 0',
-  fontSize: '90%',
-  position: 'fixed',
-  overflow: 'auto',
-  maxHeight: '50%'
-};
-
-const Rivi = ({ data, setData, children }) => (
-  <div class="rivi">
-    {children}
-    <div className="input input-kulkuneuvo">
-      <label htmlFor="kulkuneuvo">Kulku­neuvo</label>
-      <Autocomplete
-        inputProps={{
-          type: 'text',
-          className: 'u-full-width',
-          id: 'kulkuneuvo'
-        }}
-        getItemValue={item => item.label}
-        items={[
-          { label: 'juna' },
-          { label: 'bussi' },
-          { label: 'taksi' },
-          { label: 'oma auto' }
-        ]}
-        menuStyle={menuStyle}
-        renderItem={(item, isHighlighted) => (
-          <div
-            key={item.label}
-            style={{ background: isHighlighted ? 'lightgray' : 'white' }}
-          >
-            {item.label}
-          </div>
-        )}
-        value={data.kulkuneuvo}
-        onChange={e => setData({ ...data, kulkuneuvo: e.target.value })}
-        onSelect={val => setData({ ...data, kulkuneuvo: val })}
-      />
-    </div>
-    <div className="input input-lahtopaikka">
-      <label htmlFor="lahtopaikka">Mis­tä</label>
-      <input
-        type="text"
-        id="lahtopaikka"
-        className="u-full-width"
-        value={data.lahtopaikka}
-        onChange={e => {
-          setData({ ...data, lahtopaikka: e.target.value });
-        }}
-      />
-    </div>
-    <div className="input input-tulopaikka">
-      <label htmlFor="tulopaikka">Min­ne</label>
-      <input
-        type="text"
-        id="tulopaikka"
-        className="u-full-width"
-        value={data.tulopaikka}
-        onChange={e => {
-          setData({ ...data, tulopaikka: e.target.value });
-        }}
-      />
-    </div>
-    {data.kulkuneuvo === 'oma auto' && (
-      <div className="input input-km">
-        <label htmlFor="km">Mat­ka km</label>
+const Rivi = ({ data, setData, children }) => {
+  const kulkuneuvoId = `kulkuneuvo-${data.id}`;
+  const lahtopaikkaId = `lahtopaikka-${data.id}`;
+  const tulopaikkaId = `tulopaikka-${data.id}`;
+  const kmId = `km-${data.id}`;
+  const kustannusId = `kustannus-${data.id}`;
+  return (
+    <div class="rivi">
+      {children}
+      <div className="input input-kulkuneuvo">
+        <label htmlFor={kulkuneuvoId}>Kulku­neuvo</label>
+        <ComboBox
+          data={['juna', 'bussi', 'taksi', 'oma auto']}
+          id={kulkuneuvoId}
+          value={data.kulkuneuvo}
+          setValue={value => setData({ ...data, kulkuneuvo: value })}
+        />
+      </div>
+      <div className="input input-lahtopaikka">
+        <label htmlFor={lahtopaikkaId}>Mis­tä</label>
+        <ComboBox
+          data={paikat}
+          id={lahtopaikkaId}
+          value={data.lahtopaikka}
+          setValue={value => setData({ ...data, lahtopaikka: value })}
+        />
+      </div>
+      <div className="input input-tulopaikka">
+        <label htmlFor={tulopaikkaId}>Min­ne</label>
+        <ComboBox
+          data={paikat}
+          id={tulopaikkaId}
+          value={data.tulopaikka}
+          setValue={value => setData({ ...data, tulopaikka: value })}
+        />
+      </div>
+      {data.kulkuneuvo === 'oma auto' && (
+        <div className="input input-km">
+          <label htmlFor={kmId}>Mat­ka km</label>
+          <input
+            type="number"
+            id={kmId}
+            className="u-full-width"
+            value={data.matka || 0.0}
+            onChange={e => {
+              setData({
+                ...data,
+                matka: e.target.value,
+                kustannus: 0.15 * e.target.value
+              });
+            }}
+          />
+        </div>
+      )}
+      <div className="input input-kustannus">
+        <label htmlFor={kustannusId}>Kus­tan­nus €</label>
         <input
           type="number"
-          id="km"
+          id={kustannusId}
+          step=".01"
           className="u-full-width"
-          value={data.matka || 0.0}
+          value={data.kustannus}
+          readOnly={data.kulkuneuvo === 'oma auto'}
+          disabled={data.kulkuneuvo === 'oma auto'}
           onChange={e => {
-            setData({
-              ...data,
-              matka: e.target.value,
-              kustannus: 0.15 * e.target.value
-            });
+            setData({ ...data, kustannus: e.target.value });
           }}
         />
       </div>
-    )}
-    <div className="input input-kustannus">
-      <label htmlFor="kustannus">Kus­tan­nus €</label>
-      <input
-        type="number"
-        id="kustannus"
-        step=".01"
-        className="u-full-width"
-        value={data.kustannus}
-        readOnly={data.kulkuneuvo === 'oma auto'}
-        disabled={data.kulkuneuvo === 'oma auto'}
-        onChange={e => {
-          setData({ ...data, kustannus: e.target.value });
-        }}
-      />
+      {data.kulkuneuvo === 'oma auto' && (
+        <div className="taksa">
+          Kor­vaam­me oman auton käy­tös­tä 0,15 €/km.
+        </div>
+      )}
     </div>
-    {data.kulkuneuvo === 'oma auto' && (
-      <div className="taksa">Kor­vaam­me oman auton käy­tös­tä 0,15 €/km.</div>
-    )}
-  </div>
-);
+  );
+};
 
 export default Rivi;

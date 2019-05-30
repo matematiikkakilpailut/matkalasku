@@ -373,3 +373,13 @@ ol ul {
 li {
   margin-bottom: 1rem;
 }
+footer {
+  margin-top: 1rem;
+  font-size: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+footer hr {
+  width: 100%;
+}

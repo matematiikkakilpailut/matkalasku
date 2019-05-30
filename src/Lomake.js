@@ -6,6 +6,7 @@ import Datepicker from 'react-datepicker';
 
 import Rivit from './Rivit';
 import Viesti from './Viesti';
+import ComboBox from './ComboBox';
 
 const Lomake = () => {
   const [rivit, setRivit] = useState([
@@ -13,7 +14,7 @@ const Lomake = () => {
       id: shortid.generate(),
       kulkuneuvo: '',
       lahtopaikka: '',
-      tulopaikka: 'Päivölä',
+      tulopaikka: 'Päivölän kansanopisto',
       kustannus: 0.0
     }
   ]);
@@ -96,30 +97,11 @@ const Lomake = () => {
         </div>
         <div className="input input-tilaisuus">
           <label htmlFor="tilaisuus">Tilaisuus</label>
-          <Autocomplete
+          <ComboBox
             value={tilaisuus}
-            onChange={e => setTilaisuus(e.target.value)}
-            onSelect={value => setTilaisuus(value)}
-            inputProps={{
-              type: 'text',
-              className: 'u-full-width',
-              id: 'tilaisuus'
-            }}
-            wrapperStyle={{ width: '100%' }}
-            getItemValue={item => item.label}
-            items={[
-              { label: 'Valmennusviikonloppu' },
-              { label: 'Valmennusleiri' },
-              { label: 'Kilpailumatka' }
-            ]}
-            renderItem={(item, isHighlighted) => (
-              <div
-                key={item.label}
-                style={{ background: isHighlighted ? 'lightgray' : 'white' }}
-              >
-                {item.label}
-              </div>
-            )}
+            setValue={setTilaisuus}
+            id="tilaisuus"
+            data={['Valmennusviikonloppu', 'Valmennusleiri', 'Kilpailumatka']}
           />
         </div>
         <div className="input input-pvm">
@@ -142,6 +124,27 @@ const Lomake = () => {
         pvm={pvm}
         tilinumero={tilinumero}
       />
+      <footer>
+        <hr />
+        <span>
+          Koodannut <a href="https://iki.fi/jks">Jouni Seppänen</a>.
+          Kuntaluettelon lähde{' '}
+          <a href="https://www.avoindata.fi/data/fi/dataset/kunnat/resource/b1cb9870-191f-4616-9c53-5388b7ca6beb">
+            Avoindata.fi
+          </a>
+          , lisenssi{' '}
+          <a href="https://creativecommons.org/licenses/by/4.0/deed.fi">
+            CC-BY 4.0
+          </a>
+          . Rautatieasemien lähde{' '}
+          <a href="https://www.digitraffic.fi">Traffic Management Finland</a>,
+          lisenssi{' '}
+          <a href="https://creativecommons.org/licenses/by/4.0/deed.fi">
+            CC-BY 4.0
+          </a>
+          , muutettu poistamalla epätodennäköisiä matkustusasemia.
+        </span>
+      </footer>
     </section>
   );
 };
