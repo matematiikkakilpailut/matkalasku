@@ -6,7 +6,7 @@
   "dependencies": {
     "husky": "^2.3.0",
     "iban": "0.0.12",
-    "lint-staged": "^8.1.7",
+    "lint-staged": "^8.2.1",
     "prettier": "^1.17.1",
     "react": "^16.8.6",
     "react-autocomplete": "^1.8.1",
