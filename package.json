@@ -4,7 +4,7 @@
   "homepage": "https://matkalasku.matematiikkakilpailut.fi",
   "private": true,
   "dependencies": {
-    "husky": "^3.0.0",
+    "husky": "^4.2.1",
     "iban": "0.0.12",
     "lint-staged": "^9.1.0",
     "prettier": "^1.18.2",
